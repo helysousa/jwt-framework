@@ -28,10 +28,6 @@ final class JKULoaderCommand extends ObjectOutputCommand
 
     /**
      * JKULoaderCommand constructor.
-     *
-     * @param JKUFactory    $jkuFactory
-     * @param JsonConverter $jsonConverter
-     * @param null|string   $name
      */
     public function __construct(JKUFactory $jkuFactory, JsonConverter $jsonConverter, ?string $name = null)
     {
@@ -39,9 +35,6 @@ final class JKULoaderCommand extends ObjectOutputCommand
         parent::__construct($jsonConverter, $name);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         parent::configure();
@@ -52,9 +45,6 @@ final class JKULoaderCommand extends ObjectOutputCommand
             ->addArgument('url', InputArgument::REQUIRED, 'The URL');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $url = $input->getArgument('url');

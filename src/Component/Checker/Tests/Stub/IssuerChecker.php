@@ -27,35 +27,24 @@ class IssuerChecker implements HeaderChecker
 
     /**
      * IssuerChecker constructor.
-     *
-     * @param string $issuer
      */
     public function __construct(string $issuer)
     {
         $this->issuer = $issuer;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function checkHeader($value)
     {
-        if (!is_string($value) || $value !== $this->issuer) {
+        if (!\is_string($value) || $value !== $this->issuer) {
             throw new InvalidHeaderException('Bad issuer.', 'iss', $value);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportedHeader(): string
     {
         return self::CLAIM_NAME;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function protectedHeaderOnly(): bool
     {
         return false;

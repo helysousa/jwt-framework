@@ -28,10 +28,6 @@ final class X5ULoaderCommand extends ObjectOutputCommand
 
     /**
      * X5ULoaderCommand constructor.
-     *
-     * @param X5UFactory    $x5uFactory
-     * @param JsonConverter $jsonConverter
-     * @param null|string   $name
      */
     public function __construct(X5UFactory $x5uFactory, JsonConverter $jsonConverter, ?string $name = null)
     {
@@ -39,9 +35,6 @@ final class X5ULoaderCommand extends ObjectOutputCommand
         parent::__construct($jsonConverter, $name);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         parent::configure();
@@ -52,9 +45,6 @@ final class X5ULoaderCommand extends ObjectOutputCommand
             ->addArgument('url', InputArgument::REQUIRED, 'The URL');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $url = $input->getArgument('url');

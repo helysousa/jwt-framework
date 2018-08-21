@@ -23,18 +23,12 @@ final class PublicKeyCommand extends ObjectOutputCommand
 {
     /**
      * KeyAnalyzerCommand constructor.
-     *
-     * @param JsonConverter $jsonConverter
-     * @param string|null   $name
      */
     public function __construct(JsonConverter $jsonConverter, string $name = null)
     {
         parent::__construct($jsonConverter, $name);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         parent::configure();
@@ -45,9 +39,6 @@ final class PublicKeyCommand extends ObjectOutputCommand
             ->addArgument('jwk', InputArgument::REQUIRED, 'The JWK object');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $jwk = $this->getKey($input);
@@ -56,16 +47,11 @@ final class PublicKeyCommand extends ObjectOutputCommand
         $this->prepareJsonOutput($input, $output, $jwk);
     }
 
-    /**
-     * @param InputInterface $input
-     *
-     * @return JWK
-     */
     private function getKey(InputInterface $input): JWK
     {
         $jwk = $input->getArgument('jwk');
         $json = $this->jsonConverter->decode($jwk);
-        if (is_array($json)) {
+        if (\is_array($json)) {
             return JWK::create($json);
         }
 

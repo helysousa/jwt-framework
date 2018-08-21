@@ -30,30 +30,22 @@ final class IssuedAtChecker implements ClaimChecker
 
     /**
      * ExpirationTimeChecker constructor.
-     *
-     * @param int $allowedTimeDrift
      */
     public function __construct(int $allowedTimeDrift = 0)
     {
         $this->allowedTimeDrift = $allowedTimeDrift;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function checkClaim($value)
     {
-        if (!is_int($value)) {
+        if (!\is_int($value)) {
             throw new InvalidClaimException('The claim "iat" must be an integer.', self::CLAIM_NAME, $value);
         }
-        if (time() < $value - $this->allowedTimeDrift) {
+        if (\time() < $value - $this->allowedTimeDrift) {
             throw new InvalidClaimException('The JWT is issued in the future.', self::CLAIM_NAME, $value);
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportedClaim(): string
     {
         return self::CLAIM_NAME;

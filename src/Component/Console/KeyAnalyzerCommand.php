@@ -36,10 +36,6 @@ final class KeyAnalyzerCommand extends Command
 
     /**
      * KeyAnalyzerCommand constructor.
-     *
-     * @param KeyAnalyzerManager $analyzerManager
-     * @param JsonConverter      $jsonConverter
-     * @param string|null        $name
      */
     public function __construct(KeyAnalyzerManager $analyzerManager, JsonConverter $jsonConverter, string $name = null)
     {
@@ -48,9 +44,6 @@ final class KeyAnalyzerCommand extends Command
         $this->jsonConverter = $jsonConverter;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         parent::configure();
@@ -61,9 +54,6 @@ final class KeyAnalyzerCommand extends Command
             ->addArgument('jwk', InputArgument::REQUIRED, 'The JWK object');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->getFormatter()->setStyle('success', new OutputFormatterStyle('white', 'green'));
@@ -82,16 +72,11 @@ final class KeyAnalyzerCommand extends Command
         }
     }
 
-    /**
-     * @param InputInterface $input
-     *
-     * @return JWK
-     */
     private function getKey(InputInterface $input): JWK
     {
         $jwk = $input->getArgument('jwk');
         $json = $this->jsonConverter->decode($jwk);
-        if (is_array($json)) {
+        if (\is_array($json)) {
             return JWK::create($json);
         }
 
